@@ -9,7 +9,6 @@ export const SuperLLMPlugin = PluginV2.define({
       "catalog.transform": Effect.fn(function* (evt) {
         if (evt.package !== "@ai-sdk/openai-compatible") return
         if (evt.provider !== ProviderV2.ID.make("superllm")) return
-        if (evt.model === "gpt-5-chat-latest" || evt.model === "openai/gpt-5-chat") return
       }),
       "aisdk.sdk": Effect.fn(function* (evt) {
         if (evt.package !== "@ai-sdk/openai-compatible") return

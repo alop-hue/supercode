@@ -217,11 +217,13 @@ function custom(dep: CustomDep): Record<string, CustomLoader> {
       }),
     superllm: () =>
       Effect.succeed({
-        autoload: false,
+        autoload: true,
         async getModel(sdk: any, modelID: string, _options?: Record<string, any>) {
           return sdk.chat(modelID)
         },
-        options: {},
+        options: {
+          baseURL: "http://localhost:8080/v1",
+        },
       }),
     "github-copilot": () =>
       Effect.succeed({
