@@ -1,17 +1,14 @@
+
 <p align="center">
-  <a href="https://opencode.ai">
-    <picture>
-      <source srcset="packages/console/app/src/asset/logo-ornate-dark.svg" media="(prefers-color-scheme: dark)">
-      <source srcset="packages/console/app/src/asset/logo-ornate-light.svg" media="(prefers-color-scheme: light)">
-      <img src="packages/console/app/src/asset/logo-ornate-light.svg" alt="OpenCode logo">
-    </picture>
+  <a href="https://github.com/alop-hue/supercode">
+    <img src="https://raw.githubusercontent.com/alop-hue/supercode/main/docs/logo.svg?sanitize=true" alt="SuperCode logo" width="200">
   </a>
 </p>
-<p align="center">The open source AI coding agent.</p>
+<p align="center">The open source AI coding agent for developers.</p>
 <p align="center">
-  <a href="https://opencode.ai/discord"><img alt="Discord" src="https://img.shields.io/discord/1391832426048651334?style=flat-square&label=discord" /></a>
-  <a href="https://www.npmjs.com/package/opencode-ai"><img alt="npm" src="https://img.shields.io/npm/v/opencode-ai?style=flat-square" /></a>
-  <a href="https://github.com/anomalyco/opencode/actions/workflows/publish.yml"><img alt="Build status" src="https://img.shields.io/github/actions/workflow/status/anomalyco/opencode/publish.yml?style=flat-square&branch=dev" /></a>
+  <a href="https://github.com/alop-hue/supercode/discussions"><img alt="GitHub Discussions" src="https://img.shields.io/github/discussions/alop-hue/supercode?style=flat-square&label=discussions" /></a>
+  <a href="https://www.npmjs.com/package/supercode-ai"><img alt="npm" src="https://img.shields.io/npm/v/supercode-ai?style=flat-square" /></a>
+  <a href="https://github.com/alop-hue/supercode/actions/workflows/ci.yml"><img alt="Build status" src="https://img.shields.io/github/actions/workflow/status/alop-hue/supercode/ci.yml?style=flat-square&branch=main" /></a>
 </p>
 
 <p align="center">
@@ -39,26 +36,33 @@
   <a href="README.vi.md">Tiếng Việt</a>
 </p>
 
-[![OpenCode Terminal UI](packages/web/src/assets/lander/screenshot.png)](https://opencode.ai)
+[![SuperCode Terminal UI](docs/screenshot.png)](https://github.com/alop-hue/supercode)
 
 ---
 
 ### Installation
 
 ```bash
-# YOLO
-curl -fsSL https://opencode.ai/install | bash
+# YOLO (if install script is provided)
+curl -fsSL https://raw.githubusercontent.com/alop-hue/supercode/main/install.sh | bash
 
-# Package managers
-npm i -g opencode-ai@latest        # or bun/pnpm/yarn
-scoop install opencode             # Windows
-choco install opencode             # Windows
-brew install anomalyco/tap/opencode # macOS and Linux (recommended, always up to date)
-brew install opencode              # macOS and Linux (official brew formula, updated less)
-sudo pacman -S opencode            # Arch Linux (Stable)
-paru -S opencode-bin               # Arch Linux (Latest from AUR)
-mise use -g opencode               # Any OS
-nix run nixpkgs#opencode           # or github:anomalyco/opencode for latest dev branch
+# Package managers (npm / bun / pnpm / yarn)
+npm i -g supercode-ai@latest        # or bun/pnpm/yarn
+scoop install supercode             # Windows (via extras bucket)
+choco install supercode             # Windows
+brew install alop-hue/tap/supercode # macOS and Linux (custom tap)
+brew install supercode              # macOS and Linux (official formula – may be older)
+sudo pacman -S supercode            # Arch Linux (Stable)
+paru -S supercode-bin               # Arch Linux (Latest from AUR)
+mise use -g supercode               # Any OS
+nix run nixpkgs#supercode           # or github:alop-hue/supercode for latest dev branch
+
+# Build from source
+git clone https://github.com/alop-hue/supercode.git
+cd supercode
+npm install
+npm run build
+npm link
 ```
 
 > [!TIP]
@@ -66,43 +70,43 @@ nix run nixpkgs#opencode           # or github:anomalyco/opencode for latest dev
 
 ### Desktop App (BETA)
 
-OpenCode is also available as a desktop application. Download directly from the [releases page](https://github.com/anomalyco/opencode/releases) or [opencode.ai/download](https://opencode.ai/download).
+SuperCode is also available as a desktop application. Download directly from the [releases page](https://github.com/alop-hue/supercode/releases).
 
-| Platform              | Download                           |
-| --------------------- | ---------------------------------- |
-| macOS (Apple Silicon) | `opencode-desktop-mac-arm64.dmg`   |
-| macOS (Intel)         | `opencode-desktop-mac-x64.dmg`     |
-| Windows               | `opencode-desktop-windows-x64.exe` |
+| Platform              | Download                         |
+| --------------------- | -------------------------------- |
+| macOS (Apple Silicon) | `supercode-desktop-mac-arm64.dmg` |
+| macOS (Intel)         | `supercode-desktop-mac-x64.dmg`   |
+| Windows               | `supercode-desktop-windows-x64.exe` |
 | Linux                 | `.deb`, `.rpm`, or `.AppImage`     |
 
 ```bash
 # macOS (Homebrew)
-brew install --cask opencode-desktop
+brew install --cask supercode-desktop
 # Windows (Scoop)
-scoop bucket add extras; scoop install extras/opencode-desktop
+scoop bucket add extras; scoop install extras/supercode-desktop
 ```
 
 #### Installation Directory
 
 The install script respects the following priority order for the installation path:
 
-1. `$OPENCODE_INSTALL_DIR` - Custom installation directory
+1. `$SUPERCODE_INSTALL_DIR` - Custom installation directory
 2. `$XDG_BIN_DIR` - XDG Base Directory Specification compliant path
 3. `$HOME/bin` - Standard user binary directory (if it exists or can be created)
-4. `$HOME/.opencode/bin` - Default fallback
+4. `$HOME/.supercode/bin` - Default fallback
 
 ```bash
 # Examples
-OPENCODE_INSTALL_DIR=/usr/local/bin curl -fsSL https://opencode.ai/install | bash
-XDG_BIN_DIR=$HOME/.local/bin curl -fsSL https://opencode.ai/install | bash
+SUPERCODE_INSTALL_DIR=/usr/local/bin curl -fsSL https://raw.githubusercontent.com/alop-hue/supercode/main/install.sh | bash
+XDG_BIN_DIR=$HOME/.local/bin curl -fsSL https://raw.githubusercontent.com/alop-hue/supercode/main/install.sh | bash
 ```
 
 ### Agents
 
-OpenCode includes two built-in agents you can switch between with the `Tab` key.
+SuperCode includes two built‑in agents you can switch between with the `Tab` key.
 
-- **build** - Default, full-access agent for development work
-- **plan** - Read-only agent for analysis and code exploration
+- **build** – Default, full‑access agent for development work
+- **plan** – Read‑only agent for analysis and code exploration
   - Denies file edits by default
   - Asks permission before running bash commands
   - Ideal for exploring unfamiliar codebases or planning changes
@@ -110,20 +114,20 @@ OpenCode includes two built-in agents you can switch between with the `Tab` key.
 Also included is a **general** subagent for complex searches and multistep tasks.
 This is used internally and can be invoked using `@general` in messages.
 
-Learn more about [agents](https://opencode.ai/docs/agents).
+Learn more about [agents](https://github.com/alop-hue/supercode/docs/agents.md).
 
 ### Documentation
 
-For more info on how to configure OpenCode, [**head over to our docs**](https://opencode.ai/docs).
+For more info on how to configure SuperCode, **[head over to our docs](https://github.com/alop-hue/supercode/docs)**.
 
 ### Contributing
 
-If you're interested in contributing to OpenCode, please read our [contributing docs](./CONTRIBUTING.md) before submitting a pull request.
+If you're interested in contributing to SuperCode, please read our [contributing docs](./CONTRIBUTING.md) before submitting a pull request.
 
-### Building on OpenCode
+### Building on SuperCode
 
-If you are working on a project that's related to OpenCode and is using "opencode" as part of its name, for example "opencode-dashboard" or "opencode-mobile", please add a note to your README to clarify that it is not built by the OpenCode team and is not affiliated with us in any way.
+If you are working on a project that's related to SuperCode and is using "supercode" as part of its name, for example "supercode-dashboard" or "supercode-mobile", please add a note to your README to clarify that it is **not** built by the SuperCode team and is not affiliated with us in any way.
 
 ---
 
-**Join our community** [Discord](https://discord.gg/opencode) | [X.com](https://x.com/opencode)
+**Join our community** [GitHub Discussions](https://github.com/alop-hue/supercode/discussions) | [X (Twitter)](https://x.com/supercode)
