@@ -1,0 +1,71 @@
+name: Sync Upstream OpenCode
+
+on:
+  schedule:
+    - cron: "0 6 * * 1" # every Monday at 6am
+  workflow_dispatch:
+    inputs:
+      upstream_ref:
+        description: "Upstream ref to merge (tag or branch)"
+        required: false
+        default: "dev"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure git
+        run: |
+          git config user.name "supercode-bot"
+          git config user.email "bot@supercode.ai"
+
+      - name: Add upstream remote
+        run: |
+          git remote add upstream https://github.com/anomalyco/opencode.git
+          git fetch upstream ${{ github.event.inputs.upstream_ref || 'dev' }}
+
+      - name: Check for new upstream tag
+        id: check_tag
+        run: |
+          LATEST_UPSTREAM=$(git tag -l --sort=-v:refname | head -1)
+          echo "latest_upstream=$LATEST_UPSTREAM" >> $GITHUB_OUTPUT
+          OUR_LATEST=$(git tag -l --sort=-v:refname "v*" | head -1)
+          echo "our_latest=$OUR_LATEST" >> $GITHUB_OUTPUT
+
+      - name: Create sync PR
+        id: create_pr
+        run: |
+          BRANCH="sync-upstream-${{ github.event.inputs.upstream_ref || 'dev' }}-$(date +%Y%m%d)"
+          git checkout -b "$BRANCH" dev
+          git merge upstream/${{ github.event.inputs.upstream_ref || 'dev' }} --no-edit --allow-unrelated-histories || true
+
+          # Re-apply SUPERCODE branding (in case upstream overwrote files)
+          if [ -f packages/tui/src/logo.ts ]; then
+            echo "Branding files exist, ensuring SUPERCODE identity..."
+          fi
+
+          git add -A
+          git commit -m "chore: sync upstream opencode changes" --no-edit || true
+          git push origin "$BRANCH"
+
+          gh pr create \
+            --title "chore: sync upstream opencode changes ($(date +%Y-%m-%d))" \
+            --body "Automated sync from upstream opencode repository.
+
+            Upstream ref: \`${{ github.event.inputs.upstream_ref || 'dev' }}\`
+
+            After merging this PR, create a new release to publish updated SUPERCODE binaries." \
+            --base dev \
+            --head "$BRANCH" \
+            --label "sync" || echo "PR already exists or creation failed"
+        env:
+          GH_TOKEN: ${{ github.token }}

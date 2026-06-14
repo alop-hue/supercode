@@ -7,52 +7,52 @@ const positiveInteger = (name: string) =>
     Config.map((value) => (Number.isInteger(value) && value > 0 ? value : undefined)),
     Config.orElse(() => Config.succeed(undefined)),
   )
-const experimental = bool("OPENCODE_EXPERIMENTAL")
+const experimental = bool("SUPERCODE_EXPERIMENTAL")
 const enabledByExperimental = (name: string) =>
   Config.all({ experimental, enabled: Config.boolean(name).pipe(Config.option) }).pipe(
     Config.map((flags) => Option.getOrElse(flags.enabled, () => flags.experimental)),
   )
 
 export class Service extends ConfigService.Service<Service>()("@opencode/RuntimeFlags", {
-  autoShare: bool("OPENCODE_AUTO_SHARE"),
-  pure: bool("OPENCODE_PURE"),
-  disableDefaultPlugins: bool("OPENCODE_DISABLE_DEFAULT_PLUGINS"),
-  disableEmbeddedWebUi: bool("OPENCODE_DISABLE_EMBEDDED_WEB_UI"),
-  disableExternalSkills: bool("OPENCODE_DISABLE_EXTERNAL_SKILLS"),
-  disableLspDownload: bool("OPENCODE_DISABLE_LSP_DOWNLOAD"),
+  autoShare: bool("SUPERCODE_AUTO_SHARE"),
+  pure: bool("SUPERCODE_PURE"),
+  disableDefaultPlugins: bool("SUPERCODE_DISABLE_DEFAULT_PLUGINS"),
+  disableEmbeddedWebUi: bool("SUPERCODE_DISABLE_EMBEDDED_WEB_UI"),
+  disableExternalSkills: bool("SUPERCODE_DISABLE_EXTERNAL_SKILLS"),
+  disableLspDownload: bool("SUPERCODE_DISABLE_LSP_DOWNLOAD"),
   disableClaudeCodePrompt: Config.all({
-    broad: bool("OPENCODE_DISABLE_CLAUDE_CODE"),
-    direct: bool("OPENCODE_DISABLE_CLAUDE_CODE_PROMPT"),
+    broad: bool("SUPERCODE_DISABLE_CLAUDE_CODE"),
+    direct: bool("SUPERCODE_DISABLE_CLAUDE_CODE_PROMPT"),
   }).pipe(Config.map((flags) => flags.broad || flags.direct)),
   disableClaudeCodeSkills: Config.all({
-    broad: bool("OPENCODE_DISABLE_CLAUDE_CODE"),
-    direct: bool("OPENCODE_DISABLE_CLAUDE_CODE_SKILLS"),
+    broad: bool("SUPERCODE_DISABLE_CLAUDE_CODE"),
+    direct: bool("SUPERCODE_DISABLE_CLAUDE_CODE_SKILLS"),
   }).pipe(Config.map((flags) => flags.broad || flags.direct)),
   enableExa: Config.all({
     experimental,
-    enabled: bool("OPENCODE_ENABLE_EXA"),
-    legacy: bool("OPENCODE_EXPERIMENTAL_EXA"),
+    enabled: bool("SUPERCODE_ENABLE_EXA"),
+    legacy: bool("SUPERCODE_EXPERIMENTAL_EXA"),
   }).pipe(Config.map((flags) => flags.experimental || flags.enabled || flags.legacy)),
   enableParallel: Config.all({
-    enabled: bool("OPENCODE_ENABLE_PARALLEL"),
-    legacy: bool("OPENCODE_EXPERIMENTAL_PARALLEL"),
+    enabled: bool("SUPERCODE_ENABLE_PARALLEL"),
+    legacy: bool("SUPERCODE_EXPERIMENTAL_PARALLEL"),
   }).pipe(Config.map((flags) => flags.enabled || flags.legacy)),
-  enableExperimentalModels: bool("OPENCODE_ENABLE_EXPERIMENTAL_MODELS"),
-  enableQuestionTool: bool("OPENCODE_ENABLE_QUESTION_TOOL"),
-  experimentalReferences: enabledByExperimental("OPENCODE_EXPERIMENTAL_REFERENCES"),
-  experimentalBackgroundSubagents: enabledByExperimental("OPENCODE_EXPERIMENTAL_BACKGROUND_SUBAGENTS"),
-  experimentalLspTy: bool("OPENCODE_EXPERIMENTAL_LSP_TY"),
-  experimentalLspTool: enabledByExperimental("OPENCODE_EXPERIMENTAL_LSP_TOOL"),
-  experimentalOxfmt: enabledByExperimental("OPENCODE_EXPERIMENTAL_OXFMT"),
-  experimentalPlanMode: enabledByExperimental("OPENCODE_EXPERIMENTAL_PLAN_MODE"),
-  experimentalEventSystem: enabledByExperimental("OPENCODE_EXPERIMENTAL_EVENT_SYSTEM"),
-  experimentalWorkspaces: enabledByExperimental("OPENCODE_EXPERIMENTAL_WORKSPACES"),
-  experimentalIconDiscovery: enabledByExperimental("OPENCODE_EXPERIMENTAL_ICON_DISCOVERY"),
-  outputTokenMax: positiveInteger("OPENCODE_EXPERIMENTAL_OUTPUT_TOKEN_MAX"),
-  bashDefaultTimeoutMs: positiveInteger("OPENCODE_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS"),
-  experimentalNativeLlm: bool("OPENCODE_EXPERIMENTAL_NATIVE_LLM"),
-  experimentalWebSockets: bool("OPENCODE_EXPERIMENTAL_WEBSOCKETS"),
-  client: Config.string("OPENCODE_CLIENT").pipe(Config.withDefault("cli")),
+  enableExperimentalModels: bool("SUPERCODE_ENABLE_EXPERIMENTAL_MODELS"),
+  enableQuestionTool: bool("SUPERCODE_ENABLE_QUESTION_TOOL"),
+  experimentalReferences: enabledByExperimental("SUPERCODE_EXPERIMENTAL_REFERENCES"),
+  experimentalBackgroundSubagents: enabledByExperimental("SUPERCODE_EXPERIMENTAL_BACKGROUND_SUBAGENTS"),
+  experimentalLspTy: bool("SUPERCODE_EXPERIMENTAL_LSP_TY"),
+  experimentalLspTool: enabledByExperimental("SUPERCODE_EXPERIMENTAL_LSP_TOOL"),
+  experimentalOxfmt: enabledByExperimental("SUPERCODE_EXPERIMENTAL_OXFMT"),
+  experimentalPlanMode: enabledByExperimental("SUPERCODE_EXPERIMENTAL_PLAN_MODE"),
+  experimentalEventSystem: enabledByExperimental("SUPERCODE_EXPERIMENTAL_EVENT_SYSTEM"),
+  experimentalWorkspaces: enabledByExperimental("SUPERCODE_EXPERIMENTAL_WORKSPACES"),
+  experimentalIconDiscovery: enabledByExperimental("SUPERCODE_EXPERIMENTAL_ICON_DISCOVERY"),
+  outputTokenMax: positiveInteger("SUPERCODE_EXPERIMENTAL_OUTPUT_TOKEN_MAX"),
+  bashDefaultTimeoutMs: positiveInteger("SUPERCODE_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS"),
+  experimentalNativeLlm: bool("SUPERCODE_EXPERIMENTAL_NATIVE_LLM"),
+  experimentalWebSockets: bool("SUPERCODE_EXPERIMENTAL_WEBSOCKETS"),
+  client: Config.string("SUPERCODE_CLIENT").pipe(Config.withDefault("cli")),
 }) {}
 
 export type Info = Context.Service.Shape<typeof Service>

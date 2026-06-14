@@ -1,44 +1,44 @@
 {
-  "$schema": "https://opencode.ai/theme.json",
+  "$schema": "https://supercode.ai/theme.json",
   "defs": {
-    "darkStep1": "#0a0a0a",
-    "darkStep2": "#141414",
-    "darkStep3": "#1e1e1e",
-    "darkStep4": "#282828",
-    "darkStep5": "#323232",
-    "darkStep6": "#3c3c3c",
-    "darkStep7": "#484848",
-    "darkStep8": "#606060",
-    "darkStep9": "#fab283",
-    "darkStep10": "#ffc09f",
-    "darkStep11": "#808080",
-    "darkStep12": "#eeeeee",
-    "darkSecondary": "#5c9cf5",
-    "darkAccent": "#9d7cd8",
-    "darkRed": "#e06c75",
-    "darkOrange": "#f5a742",
-    "darkGreen": "#7fd88f",
-    "darkCyan": "#56b6c2",
-    "darkYellow": "#e5c07b",
-    "lightStep1": "#ffffff",
-    "lightStep2": "#fafafa",
-    "lightStep3": "#f5f5f5",
-    "lightStep4": "#ebebeb",
-    "lightStep5": "#e1e1e1",
-    "lightStep6": "#d4d4d4",
-    "lightStep7": "#b8b8b8",
-    "lightStep8": "#a0a0a0",
-    "lightStep9": "#3b7dd8",
-    "lightStep10": "#2968c3",
-    "lightStep11": "#8a8a8a",
-    "lightStep12": "#1a1a1a",
-    "lightSecondary": "#7b5bb6",
-    "lightAccent": "#d68c27",
-    "lightRed": "#d1383d",
-    "lightOrange": "#d68c27",
-    "lightGreen": "#3d9a57",
+    "darkStep1": "#0D0D0D",
+    "darkStep2": "#151312",
+    "darkStep3": "#1E1916",
+    "darkStep4": "#28211C",
+    "darkStep5": "#322923",
+    "darkStep6": "#3C302A",
+    "darkStep7": "#4D3D34",
+    "darkStep8": "#664F43",
+    "darkStep9": "#EC5B2B",
+    "darkStep10": "#FF8C42",
+    "darkStep11": "#8A7A72",
+    "darkStep12": "#F0EDEA",
+    "darkSecondary": "#D94E1F",
+    "darkAccent": "#FF8C42",
+    "darkRed": "#E06C75",
+    "darkOrange": "#F5A742",
+    "darkGreen": "#7FD88F",
+    "darkCyan": "#56B6C2",
+    "darkYellow": "#E5C07B",
+    "lightStep1": "#FFF8F4",
+    "lightStep2": "#FFF3ED",
+    "lightStep3": "#FFEDE3",
+    "lightStep4": "#FFE5D6",
+    "lightStep5": "#FFDCC7",
+    "lightStep6": "#FFD0B5",
+    "lightStep7": "#FFB891",
+    "lightStep8": "#FFA06E",
+    "lightStep9": "#D94E1F",
+    "lightStep10": "#FFA96A",
+    "lightStep11": "#8A7A72",
+    "lightStep12": "#1A1412",
+    "lightSecondary": "#B0451A",
+    "lightAccent": "#FFA96A",
+    "lightRed": "#D1383D",
+    "lightOrange": "#D94E1F",
+    "lightGreen": "#3D9A57",
     "lightCyan": "#318795",
-    "lightYellow": "#b0851f"
+    "lightYellow": "#B0851F"
   },
   "theme": {
     "primary": {
@@ -102,52 +102,52 @@
       "light": "lightStep6"
     },
     "diffAdded": {
-      "dark": "#4fd6be",
-      "light": "#1e725c"
+      "dark": "#4FD6BE",
+      "light": "#1E725C"
     },
     "diffRemoved": {
-      "dark": "#c53b53",
-      "light": "#c53b53"
+      "dark": "#C53B53",
+      "light": "#C53B53"
     },
     "diffContext": {
-      "dark": "#828bb8",
-      "light": "#7086b5"
+      "dark": "#828BB8",
+      "light": "#7086B5"
     },
     "diffHunkHeader": {
-      "dark": "#828bb8",
-      "light": "#7086b5"
+      "dark": "#828BB8",
+      "light": "#7086B5"
     },
     "diffHighlightAdded": {
-      "dark": "#b8db87",
-      "light": "#4db380"
+      "dark": "#B8DB87",
+      "light": "#4DB380"
     },
     "diffHighlightRemoved": {
-      "dark": "#e26a75",
-      "light": "#f52a65"
+      "dark": "#E26A75",
+      "light": "#F52A65"
     },
     "diffAddedBg": {
-      "dark": "#20303b",
-      "light": "#d5e5d5"
+      "dark": "#20303B",
+      "light": "#D5E5D5"
     },
     "diffRemovedBg": {
-      "dark": "#37222c",
-      "light": "#f7d8db"
+      "dark": "#37222C",
+      "light": "#F7D8DB"
     },
     "diffContextBg": {
       "dark": "darkStep2",
       "light": "lightStep2"
     },
     "diffLineNumber": {
-      "dark": "#8f8f8f",
+      "dark": "#8F8F8F",
       "light": "#595959"
     },
     "diffAddedLineNumberBg": {
-      "dark": "#1b2b34",
-      "light": "#c5d5c5"
+      "dark": "#1B2B34",
+      "light": "#C5D5C5"
     },
     "diffRemovedLineNumberBg": {
-      "dark": "#2d1f26",
-      "light": "#e7c8cb"
+      "dark": "#2D1F26",
+      "light": "#E7C8CB"
     },
     "markdownText": {
       "dark": "darkStep12",

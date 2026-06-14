@@ -52,11 +52,11 @@ function statusWithFetch(
   fetch: typeof globalThis.fetch | undefined,
 ): RuntimeStatus {
   const providerID = input.model.providerID
-  if (providerID !== "openai" && providerID !== "anthropic" && !providerID.startsWith("opencode"))
-    return { type: "unsupported", reason: "provider is not openai, opencode, or anthropic" }
+  if (providerID !== "openai" && providerID !== "anthropic" && providerID !== "openrouter" && !providerID.startsWith("opencode") && !providerID.startsWith("supercode"))
+    return { type: "unsupported", reason: "provider is not openai, opencode, supercode, openrouter, or anthropic" }
   const npm = input.model.api.npm
-  if (npm !== "@ai-sdk/openai" && npm !== "@ai-sdk/openai-compatible" && npm !== "@ai-sdk/anthropic")
-    return { type: "unsupported", reason: "provider package is not OpenAI, OpenAI-compatible, or Anthropic" }
+  if (npm !== "@ai-sdk/openai" && npm !== "@ai-sdk/openai-compatible" && npm !== "@ai-sdk/anthropic" && npm !== "@openrouter/ai-sdk-provider")
+    return { type: "unsupported", reason: "provider package is not OpenAI, OpenAI-compatible, Anthropic, or OpenRouter" }
   if (input.auth?.type === "oauth" && !(input.provider.id === "openai" && fetch)) {
     return { type: "unsupported", reason: "OAuth auth requires a provider fetch override" }
   }

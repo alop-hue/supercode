@@ -26,6 +26,7 @@ import { EffectBridge } from "@/effect/bridge"
 import { RuntimeFlags } from "@/effect/runtime-flags"
 import * as Option from "effect/Option"
 import * as OtelTracer from "@effect/opentelemetry/Tracer"
+import { Env } from "@/env"
 import { LLMAISDK } from "./llm/ai-sdk"
 import { LLMNativeRuntime } from "./llm/native-runtime"
 import { LLMRequestPrep } from "./llm/request"
@@ -70,6 +71,7 @@ const live: Layer.Layer<
   | EventV2Bridge.Service
   | LLMClientService
   | RuntimeFlags.Service
+  | Env.Service
 > = Layer.effect(
   Service,
   Effect.gen(function* () {
@@ -92,7 +94,7 @@ const live: Layer.Layer<
         mode: input.agent.mode,
       })
 
-      const [language, cfg, item, info] = yield* Effect.all(
+      const [language, cfg, item, apiAuth] = yield* Effect.all(
         [
           provider.getLanguage(input.model),
           config.get(),
@@ -100,6 +102,17 @@ const live: Layer.Layer<
           auth.get(input.model.providerID),
         ],
         { concurrency: "unbounded" },
+      )
+
+      // For OpenRouter, fall back to OPENROUTER_API_KEY env var if no explicit auth was stored
+      const envSvc = yield* Env.Service
+      const info: Auth.Info | undefined = apiAuth ?? (
+        input.model.providerID === "openrouter"
+          ? yield* envSvc.get("OPENROUTER_API_KEY").pipe(
+              Effect.map((key) => key ? { type: "api" as const, key } as Auth.Info : undefined),
+              Effect.orElseSucceed(() => undefined as Auth.Info | undefined),
+            )
+          : undefined
       )
 
       const isWorkflow = language instanceof GitLabWorkflowLanguageModel
@@ -396,6 +409,7 @@ export const defaultLayer = Layer.suspend(() =>
       LLMClient.layer.pipe(Layer.provide(Layer.mergeAll(RequestExecutor.defaultLayer, WebSocketExecutor.layer))),
     ),
     Layer.provide(RuntimeFlags.defaultLayer),
+    Layer.provide(Env.defaultLayer),
   ),
 )
 
@@ -410,6 +424,7 @@ export const node = LayerNode.make(layer, [
   EventV2Bridge.node,
   llmClient,
   RuntimeFlags.node,
+  Env.node,
 ])
 
 export * as LLM from "./llm"
