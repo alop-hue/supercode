@@ -29,6 +29,7 @@ import { TogetherAIPlugin } from "./provider/togetherai"
 import { VercelPlugin } from "./provider/vercel"
 import { VenicePlugin } from "./provider/venice"
 import { XAIPlugin } from "./provider/xai"
+import { SuperLLMPlugin } from "./provider/superllm"
 import { ZenmuxPlugin } from "./provider/zenmux"
 
 export const ProviderPlugins = [
@@ -64,6 +65,7 @@ export const ProviderPlugins = [
   VercelPlugin,
   VenicePlugin,
   XAIPlugin,
+  SuperLLMPlugin,
   ZenmuxPlugin,
   DynamicProviderPlugin,
 ]
