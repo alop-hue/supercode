@@ -1,7 +1,12 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
+<<<<<<< HEAD
   "version": "1.17.6",
   "name": "supercode",
+=======
+  "version": "1.17.7",
+  "name": "opencode",
+>>>>>>> upstream/dev
   "type": "module",
   "license": "MIT",
   "private": true,
